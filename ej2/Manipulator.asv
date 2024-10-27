@@ -5,6 +5,7 @@ clc
 
 %% Dimensiones del brazo
 
+%X proyeccion horizontal e Y proyeccion Vertical
 %Distancias de Z1 a Z2
 
 x1 = 50;    % Longitud del codo - Distancia en X
