@@ -1,10 +1,4 @@
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%   Final Automación Industrial         %
-%       Estudiantes:                    %
-%           - Chen, Carlos Angel        %
-%           - Lin, Benjamin Carlos      %
-%           - Sales, Omar               %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %%
 clc;
 clear all;
