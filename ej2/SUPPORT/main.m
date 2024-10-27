@@ -10,7 +10,7 @@ close all;
 %   instrumento del EndEffector, los angulos limites de cada joint y por
 %   ultimo los steps del robot
 %% Path de la Imagen y el Gamma
-IMAGE_PATH = "Imagenes/Recta3.png";
+IMAGE_PATH = "Recta3.png";
 gamma = 4;
 
 %% Parametros del robot (nombre: Enzo)
