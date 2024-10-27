@@ -1,4 +1,4 @@
-function plotEspacioAlcanzable(theta1,theta2,theta3,theta4,Lp,L1,L4,L5,Enzo,T)
+function plotEspacioAlcanzable(theta1,theta2,theta3,theta4,Lp,L1,L4,L5,robot,T)
     % Defino los valores limites de theta1,theta2,theta3,theta4 para el
     % ploteo
     th1 = linspace(-double(theta1),double(theta1),double(theta1))*pi/180;
@@ -15,9 +15,9 @@ function plotEspacioAlcanzable(theta1,theta2,theta3,theta4,Lp,L1,L4,L5,Enzo,T)
     yM = L4*((0.5*sin(theta1 + theta2 + theta3)) - (0.5*sin(theta2 - theta1 + theta3))) - (L5*(0.5*sin(theta2 - theta1 + theta3 + theta4) - 0.5*sin(theta1 + theta2 + theta3 + theta4))) + Lp*((0.5*sin(theta1 - theta2)) + (0.5*sin(theta1 + theta2)));
     zM = L1 + L4*sin(theta2 + theta3) + Lp*sin(theta2) + L5*sin(theta2 + theta3 + theta4);
     figure();
-    qTarget = Enzo.ikine(T, 'mask', [1 1 1 1 0 1]);
+    qTarget = robot.ikine(T, 'mask', [1 1 1 1 0 1]);
     cla;
     plot3(xM(:),yM(:),zM(:),'o')
     hold on;
-    Enzo.plot(qTarget)
+    robot.plot(qTarget)
 end

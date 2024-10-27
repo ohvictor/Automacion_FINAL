@@ -3,7 +3,9 @@
 clear variables
 clc
 
-%% Dimensiones del brazo
+%% UNIDAD 1 - CREACION DEL ROBOT
+
+%Dimensiones del brazo
 %Estas variables definen las dimensiones del brazo robótico en términos de la distancia entre las articulaciones. Los valores de 𝑥 e 𝑦 
 %representan la proyección de la distancia en el eje 𝑋 (horizontal) y en el eje Y (vertical).
 
@@ -56,20 +58,16 @@ y3 = 0;
 x3 = x3*(1+tol);   % Longitud del brazo 3
 
 xy1 = sqrt(y1^2+x1^2);
-xy2 = sqrt(y2^2+x2^2);
-xy3 = sqrt(y3^2+x3^2);
+xy2 = sqrt(y2^2+x2^2); %144
+xy3 = sqrt(y3^2+x3^2); %144
 
 %% Construcción de Links
 %Cada articulación (L(1) a L(5)) se define como un link RevoluteMDH utilizando la convención de Denavit-Hartenberg modificada (MDH).
 
 L(1) = RevoluteMDH('d',0,'a',0,'alpha',0);
-
 L(2) = RevoluteMDH('d',0,'a',0,'alpha',-pi/2,'qlim', qlim2);
-
 L(3) = RevoluteMDH('d',0,'a',xy1,'alpha',0,'qlim', qlim3);
-
 L(4) = RevoluteMDH('d',0,'a',xy2,'alpha',0);
-
 L(5) = RevoluteMDH('d',xy3,'a',0,'alpha',pi/2);
 
 %Tool: Define la posición del efector final a 100 mm de distancia en el eje Z usando la función transl, que crea una matriz de transformación para la posición de la herramienta.
@@ -83,6 +81,7 @@ L(5) = RevoluteMDH('d',xy3,'a',0,'alpha',pi/2);
 Tool = transl([0 0 100]);
 qz = [0 -offset_codo offset_codo pi/2 0];
 
+
 %% Construcción del robot
 %robot: Crea un objeto SerialLink que representa el brazo robótico, usando los eslabones definidos y la herramienta especificada.
 %robot.name: Asigna un nombre al robot.
@@ -92,3 +91,21 @@ robot = SerialLink(L,'tool', Tool);
 robot.name = "WidowX Mark II";
 
 robot.teach(qz);
+
+%% Espacio Alcanzable
+
+% Definición de los límites (puedes ajustar según sea necesario)
+limits = [
+    -pi, pi;                                    % q1: Rotación completa de la base
+    -pi/2 - offset_codo, pi/2 - offset_codo;    % q2: Ajustado por el offset del codo
+    -pi/2 + offset_codo, pi/2 + offset_codo;    % q3: Ajustado por el offset del codo
+    -pi/2, pi/2;                                % q4: Rotación de ±90°
+    -pi, pi                                     % q5: Rotación completa del efector final
+];
+
+degree_step = [20, 10, 10, 10, 180];
+% Configuración inical de reposo
+qz = [0, -offset_codo, offset_codo, pi/2, 0];
+
+% Llamada a la función para visualizar el espacio alcanzable
+plotSpace(limits, robot, degree_step, qz);

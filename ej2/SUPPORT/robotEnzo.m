@@ -19,47 +19,47 @@ function robotEnzo(L1,L2,L3,L4,L5,Lp,hojaAncho,hojaLargo,hojaOrigen,hojaAltura,m
     Enzo.plot(qTarget)
 
     %% Dibujo Hoja
-    hold on;
-    dibujoHoja(hojaAncho, hojaLargo,hojaOrigen(1),hojaOrigen(2),hojaAltura);
+    %hold on;
+    %dibujoHoja(hojaAncho, hojaLargo,hojaOrigen(1),hojaOrigen(2),hojaAltura);
 
     %% Espacio alcanzable 
-    %plotEspacioAlcanzable(limTheta1,limTheta2,limTheta3,limTheta4,Lp,L1,L4,L5,Enzo,T);
+    plotEspacioAlcanzable(limTheta1,limTheta2,limTheta3,limTheta4,Lp,L1,L4,L5,Enzo,T);
 
     %% Vision
     %imgInitPos, imgFinalPos = VISION
-    currentPos = [hojaOrigen, L1+marcadorLargo+marcadorOffset];
+    %currentPos = [hojaOrigen, L1+marcadorLargo+marcadorOffset];
 
     %% Logica de movimiento
-    check = checkTrajectory(imgInitPosXY,imgFinalPosXY,hojaAncho,hojaLargo,hojaOrigen);
-    if (check == 1)
+    %check = checkTrajectory(imgInitPosXY,imgFinalPosXY,hojaAncho,hojaLargo,hojaOrigen);
+    %if (check == 1)
         % Me ubico espacialmente en la posicion inicial de la trayectoria
-        if ( (currentPos(1) ~= imgInitPosXY(1)) && (currentPos(2) ~= imgInitPosXY(2)) ) 
+     %   if ( (currentPos(1) ~= imgInitPosXY(1)) && (currentPos(2) ~= imgInitPosXY(2)) ) 
             % Me ubico en la posicion inicial XY
-            finalPos = [imgInitPosXY, L1+marcadorLargo+marcadorOffset];
-            [currentPos,Ts] = moveRobot(Enzo,currentPos,finalPos,steps,rotation);
+      %      finalPos = [imgInitPosXY, L1+marcadorLargo+marcadorOffset];
+       %     [currentPos,Ts] = moveRobot(Enzo,currentPos,finalPos,steps,rotation);
             % Bajo hasta llegar a la mesa de trabajo
-            finalPos = [imgInitPosXY, L1+marcadorLargo];
-            [currentPos,Ts] = moveRobot(Enzo,currentPos,finalPos,steps,rotation);
+        %    finalPos = [imgInitPosXY, L1+marcadorLargo];
+         %   [currentPos,Ts] = moveRobot(Enzo,currentPos,finalPos,steps,rotation);
 
-        else
+        %else
             % Si mi posicion XY coincide, solamente bajo hasta la posicion de
             % trabajo
-            finalPos = [imgInitPosXY, L1+marcadorLargo];
-            [currentPos,Ts] = moveRobot(Enzo,currentPos,finalPos,steps,rotation);
-        end
+         %   finalPos = [imgInitPosXY, L1+marcadorLargo];
+          %  [currentPos,Ts] = moveRobot(Enzo,currentPos,finalPos,steps,rotation);
+        %end
 
         % Una vez ubicado en la posicion inicial, comienzo a trazar la trayectoria
-        if (currentPos(3)==(L1+marcadorLargo))
-            finalPos = [imgFinalPosXY, L1+marcadorLargo];
-            [currentPos,Ts] = moveRobot(Enzo,currentPos,finalPos,steps,rotation);
-            hold on;
-            drawTrayectory(Ts,L1);
-        end
+        %if (currentPos(3)==(L1+marcadorLargo))
+         %   finalPos = [imgFinalPosXY, L1+marcadorLargo];
+          %  [currentPos,Ts] = moveRobot(Enzo,currentPos,finalPos,steps,rotation);
+           % hold on;
+           % drawTrayectory(Ts,L1);
+        %end
         
         % Termina de trazar la trayectoria, vuelvo a la posicion original
-        finalPos = [hojaOrigen, L1+marcadorLargo+marcadorOffset];
-        moveRobot(Enzo,currentPos,finalPos,steps,rotation);
-    end 
+        %finalPos = [hojaOrigen, L1+marcadorLargo+marcadorOffset];
+        %moveRobot(Enzo,currentPos,finalPos,steps,rotation);
+    %end 
     
 end 
 
