@@ -25,14 +25,14 @@ x3 = 144;   % Longitud del brazo 3 - Distancia en X
 y3 = 0;
 
 
-%% Cálculo de Distancias entre links
+% Cálculo de Distancias entre links
 % Se calculaa la distancia euclidiana entre las articulaciones 𝑍1, 𝑍2,𝑍3 y 𝑍4
 
 xy1 = sqrt(y1^2+x1^2); %Distancia MOD entre Z1 y Z2
 xy2 = sqrt(y2^2+x2^2); %Distancia MOD entre Z2 y Z3
 xy3 = sqrt(y3^2+x3^2); %Distancia MOD entre Z3 y Z4
 
-%% Límites de rotación
+% Límites de rotación
 
 %offset_codo: Calcula el ángulo de inclinación del primer segmento (𝑍1 a 𝑍2) usando la función atan2, que devuelve el ángulo entre el eje 
 %X y el vector resultante de las distancias x1 e 𝑦1
@@ -43,7 +43,7 @@ offset_codo = atan2(y1,x1);
 qlim2 = [-pi/2 pi/2] - offset_codo;
 qlim3 = [-pi/2 pi/2] + offset_codo;
 
-%% Inyección de tolerancia
+% Inyección de tolerancia
 %Es un valor de tolerancia que permite ajustar ligeramente las dimensiones de los eslabones. 
 %En este caso, tol es cero, por lo que no hay variación.
 tol = 0.00;
@@ -61,7 +61,7 @@ xy1 = sqrt(y1^2+x1^2);
 xy2 = sqrt(y2^2+x2^2); %144
 xy3 = sqrt(y3^2+x3^2); %144
 
-%% Construcción de Links
+% Construcción de Links
 %Cada articulación (L(1) a L(5)) se define como un link RevoluteMDH utilizando la convención de Denavit-Hartenberg modificada (MDH).
 
 L(1) = RevoluteMDH('d',0,'a',0,'alpha',0);
@@ -82,7 +82,7 @@ Tool = transl([0 0 100]);
 qz = [0 -offset_codo offset_codo pi/2 0];
 
 
-%% Construcción del robot
+% Construcción del robot
 %robot: Crea un objeto SerialLink que representa el brazo robótico, usando los eslabones definidos y la herramienta especificada.
 %robot.name: Asigna un nombre al robot.
 %robot.teach(qz): Abre una interfaz gráfica que permite mover manualmente las articulaciones del robot para ver cómo responde. Esto es útil para visualizar el comportamiento del robot y ajustar manualmente las configuraciones de cada articulación.
@@ -90,9 +90,15 @@ qz = [0 -offset_codo offset_codo pi/2 0];
 robot = SerialLink(L,'tool', Tool);
 robot.name = "WidowX Mark II";
 
+%2.2 - DIBUJO TRAYECTORIA
+
+x0= 350; y0=200; z0=0;
+
+drawTablePaper(150, 200, x0, y0, z0);
 robot.teach(qz);
 
-%% 2 - ESPACIO ALCANZABLE
+
+%% 2.1 - ESPACIO ALCANZABLE
 
 % Definición de los límites (puedes ajustar según sea necesario)
 limits = [
@@ -106,5 +112,5 @@ limits = [
 degree_step = [30, 20, 20, 20, 180];
 qz = [0, -offset_codo, offset_codo, pi/2, 0];
 
-% Llamada a la función para visualizar el espacio alcanzable
 plotSpace(limits, robot, degree_step, qz);
+
