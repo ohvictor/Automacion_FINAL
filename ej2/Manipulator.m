@@ -3,7 +3,7 @@
 clear variables
 clc
 
-%% UNIDAD 1 - CREACION DEL ROBOT
+%% 1 - CREACION DEL ROBOT
 
 %Dimensiones del brazo
 %Estas variables definen las dimensiones del brazo robótico en términos de la distancia entre las articulaciones. Los valores de 𝑥 e 𝑦 
@@ -92,7 +92,7 @@ robot.name = "WidowX Mark II";
 
 robot.teach(qz);
 
-%% Espacio Alcanzable
+%% 2 - ESPACIO ALCANZABLE
 
 % Definición de los límites (puedes ajustar según sea necesario)
 limits = [
@@ -103,8 +103,7 @@ limits = [
     -pi, pi                                     % q5: Rotación completa del efector final
 ];
 
-degree_step = [20, 10, 10, 10, 180];
-% Configuración inical de reposo
+degree_step = [30, 20, 20, 20, 180];
 qz = [0, -offset_codo, offset_codo, pi/2, 0];
 
 % Llamada a la función para visualizar el espacio alcanzable
