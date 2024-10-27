@@ -10,7 +10,6 @@ clc
 x1 = 50;    % Longitud del codo - Distancia en X
 y1 = 144;   % Altura en la imagen - Distancia en Y
 
-
 %Distancias de Z2 a Z3
 
 x2 = 144;   % Longitud del brazo 2 - Distancia en X
