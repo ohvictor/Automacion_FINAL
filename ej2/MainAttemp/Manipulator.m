@@ -1,10 +1,11 @@
 %Clearing...
 
-clear variables
-clc
+
 
 %% 1 - CREACION DEL ROBOT
 
+clear variables
+clc
 %Dimensiones del brazo
 %Estas variables definen las dimensiones del brazo robótico en términos de la distancia entre las articulaciones. Los valores de 𝑥 e 𝑦 
 %representan la proyección de la distancia en el eje 𝑋 (horizontal) y en el eje Y (vertical).
@@ -116,13 +117,23 @@ limits = [
     -pi, pi                                     % q5: Rotación completa del efector final
 ];
 
-moveToTarget(robot, qz, x_target, y_target, steps, rect_center, limits);
+% Posición actual (ejemplo de inicialización)
+currentPos = [0, 100, 150]; % Coordenadas iniciales en X, Y, Z
+
+% Posición final deseada
+finalPos = [200, 150, 200]; % Coordenadas finales en X, Y, Z
+
+% Número de pasos para una transición suave
+steps = 20;
+
+% Rotación constante (ejemplo de matriz de rotación)
+rotation = eye(3); % Rotación identidad, sin rotación adicional
+
+% Llamada simple a moveRobot para mover el brazo de currentPos a finalPos
+[currentPos, Ts] = moveRobot(robot, currentPos, finalPos, steps, rotation);
 
 
-%%
-%finalJoint = moveToTarget(robot, qz, 120, 50, steps, rect_center, limits);
-%pause(2);
-moveToTarget(robot, finalJoint, x_target, y_target, steps, rect_center, limits);
+
 
 
 %% 2.1 - ESPACIO ALCANZABLE
