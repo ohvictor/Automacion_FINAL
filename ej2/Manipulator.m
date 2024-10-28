@@ -102,7 +102,7 @@ x_target = 100; % Relative X position within the paper
 y_target = 100; % Relative Y position within the paper
 
 % Define the number of steps for smooth movement
-steps = 50;
+steps = 30;
 
 % Center of the rectangle (same as used in drawTablePaper)
 rect_center = [x0, y0, z0]; % Center coordinates (x0, y0, z0)
