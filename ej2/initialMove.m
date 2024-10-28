@@ -1,38 +1,35 @@
-function q_target = moveToTarget(robot, qz, x_target, y_target, steps, rect_center, limits)
-    % moveToTarget: Moves the robot from the resting position to a target position while ensuring the end effector stays at least 10 mm above z0.
+function q_target = initialMove(robot, qz, z0, zoffset, limits, steps)
+    % initialMove: Moves the robot to a position where the end effector is at z0 + zoffset.
+    % Keeps q4 aligned parallel to the X-axis while allowing other joints to adjust.
     % robot: The SerialLink object representing the robot.
     % qz: The resting position of the joints.
-    % x_target, y_target: The X and Y coordinates of the target position (relative within the rectangle).
-    % steps: Number of steps to reach from the starting to the final position.
-    % rect_center: [x0, y0, z0] The center of the rectangle drawn with drawTablePaper.
+    % z0: The height of the plane.
+    % zoffset: Additional height above z0.
     % limits: A matrix where each row is [min, max] for each joint's rotation limits.
+    % steps: Number of steps for smooth movement.
 
-    % Unpack the center coordinates of the rectangle
-    x0 = rect_center(1);
-    y0 = rect_center(2);
-    z0 = rect_center(3);
-
-    % Convert the relative target coordinates to absolute coordinates within the rectangle
-    x_final = x0 + x_target;
-    y_final = y0 + y_target;
-
-    % Get the initial position (x0, y0, z0) from the resting configuration qz
+    % Get the initial position and orientation from the resting configuration qz
     T_initial = robot.fkine(qz);
-    z_start = T_initial.t(3); % Initial Z position
+    R_initial = T_initial.R; % Extract the orientation of the end effector
+    currentPos = T_initial.t; % Extract the current position of the end effector
 
-    % Ensure the initial Z position of the end effector is at least 10 mm above the rectangle plane
-    if z_start < z0 + 10
-        error('The initial position of the end effector is below the required height of z0 + 10 mm.');
-    end
-
-    % Define the final position, ensuring it is at least 10 mm above the rectangle plane
-    z_final = z0 + 10; % Ensure z_final is 10 mm above the plane
-    T_final = transl([x_final, y_final, z_final]);
+    % Define the target height as z0 + zoffset
+    z_target = z0 + zoffset;
+    
+    % Create a new transformation matrix with the same X, Y, and updated Z position
+    % Adjust the rotation to ensure q4 is aligned with the X-axis
+    R_target = troty(pi/2); % Rotate about the Y-axis by 90 degrees to align q4 with X-axis
+    T_target = transl([currentPos(1), currentPos(2), z_target]) * R_target;
 
     % Use inverse kinematics to find the joint configuration for the target position
-    q_target = robot.ikine(T_final, 'mask', [1 1 0 0 0 0], 'q0', qz);
-    
- 
+    % Allow adjustment of multiple joints while keeping the orientation.
+    q_target = robot.ikine(T_target, 'mask', [1 1 1 1 0 1], 'q0', qz, 'ilimit', 1000, 'tol', 1e-4);
+
+    % Check if q_target is empty or contains NaN values (indicating failure to converge)
+    if isempty(q_target) || any(isnan(q_target))
+        error('Inverse kinematics did not converge to a solution. Adjust the target position or initial guess.');
+    end
+
     % Ensure the target configuration is within the limits
     q_target = enforceLimits(q_target, limits);
 

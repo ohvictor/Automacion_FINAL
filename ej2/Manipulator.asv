@@ -115,11 +115,21 @@ limits = [
     -pi, pi                                     % q5: Rotación completa del efector final
 ];
 
+zoffset = 10; % Desired height offset above the rectangle
+steps = 30; % Number of steps for smooth movement
 
-finalJoint = moveToTarget(robot, qz, 120, 50, steps, rect_center, limits);
-pause(2);
-moveToTarget(robot, finalJoint, x_target, y_target, steps, rect_center, limits);
+q_target = initialMove(robot, qz, z0, zoffset, limits, steps);
+%moveToTarget(robot, qz, x_target, y_target, steps, rect_center, limits);
 
+rotation = [1,0,0; 
+                0,0,-1; 
+                0,1,0];
+
+currentPos = [hojaOrigen, L1+marcadorLargo+marcadorOffset];
+qTarget = Enzo.ikine(T, 'mask', [1 1 1 1 0 1]);
+Enzo.plot(qTarget)
+
+mover(robot,currentPos,finalPos,steps,rotation)
 
 %% 2.1 - ESPACIO ALCANZABLE
 
