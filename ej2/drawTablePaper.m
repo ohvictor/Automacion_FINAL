@@ -16,7 +16,7 @@ function drawTablePaper(width, length, x0, y0, z0)
     Z = [z0, z0, z0, z0]; % Keep the rectangle in the plane at z0
 
     % Draw the rectangle with a semi-transparent color
-    color = [0, 1, 0]; % Green
+    color = [1, 1, 0]; % Green
     paper = fill3(X, Y, Z, color);
     paper.FaceAlpha = 0.3; % Adjust transparency
 end

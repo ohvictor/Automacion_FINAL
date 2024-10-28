@@ -92,11 +92,30 @@ robot.name = "WidowX Mark II";
 
 %2.2 - DIBUJO TRAYECTORIA
 
-x0= 350; y0=200; z0=0;
+x0= 350; y0=200; z0=0; width=150;large=200; %Work table definition
 
-drawTablePaper(150, 200, x0, y0, z0);
+drawTablePaper(width, large, x0, y0, z0);
 robot.teach(qz);
 
+% Define the relative target position within the bounds of the table paper
+x_target = 100; % Relative X position within the paper
+y_target = 100; % Relative Y position within the paper
+
+% Define the number of steps for smooth movement
+steps = 50;
+
+% Center of the rectangle (same as used in drawTablePaper)
+rect_center = [x0, y0, z0]; % Center coordinates (x0, y0, z0)
+
+limits = [
+    -pi, pi;                                    % q1: Rotación completa de la base
+    -pi/2 - offset_codo, pi/2 - offset_codo;    % q2: Ajustado por el offset del codo
+    -pi/2 + offset_codo, pi/2 + offset_codo;    % q3: Ajustado por el offset del codo
+    -pi/2, pi/2;                                % q4: Rotación de ±90°
+    -pi, pi                                     % q5: Rotación completa del efector final
+];
+
+moveToTarget(robot, qz, x_target, y_target, steps, rect_center, limits);
 
 %% 2.1 - ESPACIO ALCANZABLE
 
