@@ -70,6 +70,7 @@ L(3) = RevoluteMDH('d',0,'a',xy1,'alpha',0,'qlim', qlim3);
 L(4) = RevoluteMDH('d',0,'a',xy2,'alpha',0);
 L(5) = RevoluteMDH('d',xy3,'a',0,'alpha',pi/2);
 
+
 %Tool: Define la posición del efector final a 100 mm de distancia en el eje Z usando la función transl, que crea una matriz de transformación para la posición de la herramienta.
 %qz: Define una configuración inicial para las articulaciones del robot, donde: 
 %0: Articulación L(1) en posición neutral.
@@ -115,9 +116,12 @@ limits = [
     -pi, pi                                     % q5: Rotación completa del efector final
 ];
 
+moveToTarget(robot, qz, x_target, y_target, steps, rect_center, limits);
 
-finalJoint = moveToTarget(robot, qz, 120, 50, steps, rect_center, limits);
-pause(2);
+
+%%
+%finalJoint = moveToTarget(robot, qz, 120, 50, steps, rect_center, limits);
+%pause(2);
 moveToTarget(robot, finalJoint, x_target, y_target, steps, rect_center, limits);
 
 

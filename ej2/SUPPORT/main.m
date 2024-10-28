@@ -44,11 +44,11 @@ steps = 30;
 %[imgInitPosXY, imgFinalPosXY] = robotvision(IMAGE_PATH, gamma);
 
 %% Posicion inicial y final
-% imgInitPosXY = [100,-275];
-% imgFinalPosXY = [200,-200];
+ imgInitPosXY = [100,-275];
+ imgFinalPosXY = [200,-200];
 
 %% Creo el robot pasandole todos los parametros necesarios
-robotEnzo(L1,L2,L3,L4,L5,Lp,hojaAncho,hojaLargo,hojaOrigen,hojaAltura,marcadorLargo,marcadorOffset,limTheta1,limTheta2,limTheta3,limTheta4,steps,0,0);
+robotEnzo(L1,L2,L3,L4,L5,Lp,hojaAncho,hojaLargo,hojaOrigen,hojaAltura,marcadorLargo,marcadorOffset,limTheta1,limTheta2,limTheta3,limTheta4,steps,imgInitPosXY,imgFinalPosXY);
 
 
 

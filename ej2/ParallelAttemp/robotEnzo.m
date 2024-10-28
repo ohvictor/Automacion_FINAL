@@ -12,11 +12,13 @@ function robotEnzo(L1,L2,L3,L4,L5,Lp,hojaAncho,hojaLargo,hojaOrigen,hojaAltura,m
     currentPos = [hojaOrigen, L1+marcadorLargo+marcadorOffset];
     T = [rotation, currentPos'; 0 0 0 1];
 
-    Enzo = SerialLink(L);
+    Enzo = SerialLink(L)
     Enzo.name = 'Enzo';
 
     qTarget = Enzo.ikine(T, 'mask', [1 1 1 1 0 1]);
-    Enzo.plot(qTarget)
+    
+    Enzo.teach(qTarget)
+    
 
     %% Dibujo Hoja
     hold on;
@@ -28,7 +30,8 @@ function robotEnzo(L1,L2,L3,L4,L5,Lp,hojaAncho,hojaLargo,hojaOrigen,hojaAltura,m
     %% Vision
     %imgInitPos, imgFinalPos = VISION
     currentPos = [hojaOrigen, L1+marcadorLargo+marcadorOffset];
-
+    
+    
     %% Logica de movimiento
     check = checkTrajectory(imgInitPosXY,imgFinalPosXY,hojaAncho,hojaLargo,hojaOrigen);
     if (check == 1)
@@ -60,15 +63,5 @@ function robotEnzo(L1,L2,L3,L4,L5,Lp,hojaAncho,hojaLargo,hojaOrigen,hojaAltura,m
         finalPos = [hojaOrigen, L1+marcadorLargo+marcadorOffset];
         moveRobot(Enzo,currentPos,finalPos,steps,rotation);
     end 
+
     
-end 
-
-
-
-
-
-
-
-
-
-

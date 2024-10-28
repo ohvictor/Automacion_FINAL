@@ -1,4 +1,4 @@
-function [currentPos,Ts]=mover(Enzo,currentPos,finalPos,steps,rotation)
+function [currentPos,Ts]=moveRobot(Enzo,currentPos,finalPos,steps,rotation)
     
     %rotation = [1,0,0; 0,0,-1; 0,1,0];
     
