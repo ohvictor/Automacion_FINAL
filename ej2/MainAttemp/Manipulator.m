@@ -94,7 +94,7 @@ robot.name = "WidowX Mark II";
 
 %2.2 - DIBUJO TRAYECTORIA
 
-x0= 350; y0=200; z0=0; width=150;large=200; %Work table definition
+x0= 350; y0=150; z0=0; width=150;large=200; %Work table definition
 
 drawTablePaper(width, large, x0, y0, z0);
 robot.teach(qz);
@@ -117,22 +117,26 @@ limits = [
     -pi, pi                                     % q5: Rotación completa del efector final
 ];
 
-% Posición actual (ejemplo de inicialización)
-currentPos = [0, 100, 150]; % Coordenadas iniciales en X, Y, Z
 
-% Posición final deseada
-finalPos = [200, 150, 200]; % Coordenadas finales en X, Y, Z
+% Obtiene la posición inicial en el espacio cartesiano a partir de qz
+currentPos = getPositionFromQz(robot, qz)'
+%currentPos = [438, 0, 144]; % Coordenadas iniciales en X, Y, Z
 
+%finalPos = [currentPos(1:2),100]; % Coordenadas finales en X, Y, Z
+finalPos = [358, 0, 144];
 % Número de pasos para una transición suave
 steps = 20;
 
 % Rotación constante (ejemplo de matriz de rotación)
-rotation = eye(3); % Rotación identidad, sin rotación adicional
+%rotation = eye(3); % Rotación identidad, sin rotación adicional
+
+theta = pi/4; 
+rotation = [1,       0,            0;
+             0,  cos(theta), -sin(theta);
+             0,  sin(theta),  cos(theta)];
 
 % Llamada simple a moveRobot para mover el brazo de currentPos a finalPos
-[currentPos, Ts] = moveRobot(robot, currentPos, finalPos, steps, rotation);
-
-
+[currentPos, Ts] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 
 
 
