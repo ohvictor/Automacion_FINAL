@@ -128,11 +128,13 @@ rotation = [1,0,0;
            0,0,-1; 
            0,1,0];
 
-[currentPos, Ts, qLast] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 
 pause(2); % Pauses execution for 2 seconds
 
-[currentPos, Ts, qLast] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+%finalPos = [xmax, currentPos(2) , currentPos(3)];
+
+%[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 
 
 %% 2.1 - ESPACIO ALCANZABLE

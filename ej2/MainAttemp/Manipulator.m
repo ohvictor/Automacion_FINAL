@@ -117,7 +117,7 @@ limits = [
 % Obtiene la posición inicial en el espacio cartesiano a partir de qz
 currentPos = getPositionFromQz(robot, qz)'
 %finalPos = [xmin, currentPos(2) , z0 + paintHeight];
-finalPos = [xmin, currentPos(2) , z0 + paintHeight];
+finalPos = [xmax, currentPos(2) , z0 + paintHeight];
 steps = 30;
 
 % Rotación constante (ejemplo de matriz de rotación)
@@ -132,7 +132,7 @@ rotation = [1,0,0;
 
 pause(2); % Pauses execution for 2 seconds
 
-finalPos = [xmax, currentPos(2) , currentPos(3)];
+finalPos = [currentPos(1), currentPos(2) + 80 , currentPos(3)];
 
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 
