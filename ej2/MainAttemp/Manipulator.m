@@ -117,7 +117,6 @@ limits = [
 % Obtiene la posición inicial en el espacio cartesiano a partir de qz
 currentPos = getPositionFromQz(robot, qz)'
 %finalPos = [xmin, currentPos(2) , z0 + paintHeight];
-finalPos = [xmax, currentPos(2) , z0 + paintHeight];
 steps = 30;
 
 % Rotación constante (ejemplo de matriz de rotación)
@@ -127,14 +126,17 @@ theta = pi/2;
 rotation = [1,0,0; 
            0,0,-1; 
            0,1,0];
-
+finalPos = [xmax, currentPos(2) , z0 + paintHeight];
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
-
 pause(2); % Pauses execution for 2 seconds
 
-finalPos = [currentPos(1), currentPos(2) + 130 , currentPos(3)];
-
+finalPos = [currentPos(1), currentPos(2) + 10 , currentPos(3)];
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+pause(2); % Pauses execution for 2 seconds
+
+finalPos = [currentPos(1) + 10, currentPos(2) + 10 , currentPos(3)];
+[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+pause(2); % Pauses execution for 2 seconds
 
 
 %% 2.1 - ESPACIO ALCANZABLE
