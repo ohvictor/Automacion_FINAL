@@ -1,7 +1,3 @@
-%Clearing...
-
-
-
 %% 1 - CREACION DEL ROBOT
 
 clear variables
@@ -95,13 +91,13 @@ robot.name = "WidowX Mark II";
 %2.2 - DIBUJO TRAYECTORIA
 
 x0= 350; y0=150; z0=0; width=150;large=200; %Work table definition
+xmin = x0 - width/2; 
+ymin = y0 - large/2;
+xmax = x0 + width/2;
+ymax = y0 + large/2
 
 drawTablePaper(width, large, x0, y0, z0);
 robot.teach(qz);
-
-% Define the relative target position within the bounds of the table paper
-x_target = 100; % Relative X position within the paper
-y_target = 100; % Relative Y position within the paper
 
 % Define the number of steps for smooth movement
 steps = 30;
@@ -109,6 +105,7 @@ steps = 30;
 % Center of the rectangle (same as used in drawTablePaper)
 rect_center = [x0, y0, z0]; % Center coordinates (x0, y0, z0)
 
+paintHeight = 75;
 limits = [
     -pi, pi;                                    % q1: Rotación completa de la base
     -pi/2 - offset_codo, pi/2 - offset_codo;    % q2: Ajustado por el offset del codo
@@ -117,27 +114,27 @@ limits = [
     -pi, pi                                     % q5: Rotación completa del efector final
 ];
 
-
 % Obtiene la posición inicial en el espacio cartesiano a partir de qz
 currentPos = getPositionFromQz(robot, qz)'
-%currentPos = [438, 0, 144]; % Coordenadas iniciales en X, Y, Z
-
-%finalPos = [currentPos(1:2),100]; % Coordenadas finales en X, Y, Z
-finalPos = [358, 0, 144];
-% Número de pasos para una transición suave
-steps = 20;
+%finalPos = [xmin, currentPos(2) , z0 + paintHeight];
+finalPos = [xmin, currentPos(2) , z0 + paintHeight];
+steps = 30;
 
 % Rotación constante (ejemplo de matriz de rotación)
 %rotation = eye(3); % Rotación identidad, sin rotación adicional
 
-theta = pi/4; 
-rotation = [1,       0,            0;
-             0,  cos(theta), -sin(theta);
-             0,  sin(theta),  cos(theta)];
+theta = pi/2; 
+rotation = [1,0,0; 
+           0,0,-1; 
+           0,1,0];
 
-% Llamada simple a moveRobot para mover el brazo de currentPos a finalPos
-[currentPos, Ts] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 
+pause(2); % Pauses execution for 2 seconds
+
+finalPos = [xmax, currentPos(2) , currentPos(3)];
+
+[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 
 
 %% 2.1 - ESPACIO ALCANZABLE
