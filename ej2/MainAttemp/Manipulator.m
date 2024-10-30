@@ -132,7 +132,7 @@ rotation = [1,0,0;
 
 pause(2); % Pauses execution for 2 seconds
 
-finalPos = [currentPos(1), currentPos(2) + 80 , currentPos(3)];
+finalPos = [currentPos(1), currentPos(2) + 130 , currentPos(3)];
 
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 
