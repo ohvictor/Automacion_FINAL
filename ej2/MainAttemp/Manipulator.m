@@ -11,6 +11,8 @@ clc
 %y en el eje Y (vertical).%                           %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+rotation = [1,0,0;0,0,-1;0,1,0];
+
 %Distancias de Z1 a Z2
 
 x1 = 50;    % Longitud del codo - Distancia en X
@@ -105,12 +107,6 @@ limits = [
 currentPos = getPositionFromQz(robot, qz)';
 steps = 30;
 
-% Rotación constante (ejemplo de matriz de rotación)
-%rotation = eye(3); % Rotación identidad, sin rotación adicional
-
-rotation = [1,0,0; 
-           0,0,-1; 
-           0,1,0];
 
 %Me posiciono en la posicion inicial a la altura de dibujo     
 finalPos = [xmax, currentPos(2) , z0 + marketLenght];
@@ -127,14 +123,19 @@ finalPos = [xmax, ymax , currentPos(3)];
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
+
 %Dibujo la trayectoria - NOTA: Dibujarlo al mismo tiempo que el movimiento
 %del brazo lo hace muy lento
-
 drawLineOnPaper([x0, y0, currentPos(3)], finalPos,marketLenght)
 
+
 %%
-%Bench Testeo de Posiciones:
-%Abajo
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Bench Test de Posiciones en el plano                 %
+%Sirve para testear como se mueve el brazoo en la mesa% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 %Al inicio del rectangulo (esquina menor)
 finalPos = [xmin, ymin , currentPos(3)];
 
