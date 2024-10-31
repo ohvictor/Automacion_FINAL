@@ -1,4 +1,10 @@
-function drawTablePaper(width, length, x0, y0, z0)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Tolerancia:                                          %
+%Las dimensiones de cada link podrian variar hasta un %
+%5 %. Esta variacion aplica a todos los links         % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function createTablePaper(width, length, x0, y0, z0)
     % drawTablePaper: Draws a rectangle in the XY plane on the 3D plot
     % width: Width of the rectangle
     % length: Length of the rectangle

@@ -1,3 +1,9 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Tolerancia:                                          %
+%Las dimensiones de cada link podrian variar hasta un %
+%5 %. Esta variacion aplica a todos los links         % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function [currentPos, Ts, qLast] = moveRobotArm(robot, qz, finalPos, steps, rotation)
     % [currentPos, Ts, qLast] = moveRobotArm(robot, qz, finalPos, steps, rotation)
     % Mueve el robot desde la configuración inicial qz hasta la posición final deseada en 'steps' pasos en el espacio cartesiano
@@ -16,7 +22,7 @@ function [currentPos, Ts, qLast] = moveRobotArm(robot, qz, finalPos, steps, rota
     % Convertir las matrices de transformación interpoladas en ángulos articulares
     qMove = zeros(steps, length(qz));
     for i = 1:steps
-        qMove(i, :) = robot.ikine(TMove(:, :, i), 'mask', [1 1 1 1 0 1]);
+        qMove(i, :) = robot.ikine(TMove(:, :, i), 'mask', [1 1 1 1 0 1], 'ilimit', 1000,'tol', 1e-1);
     end
 
     % Visualizar la trayectoria
