@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Tolerancia:                                          %
+%moveRoboArm                                          %
 %Las dimensiones de cada link podrian variar hasta un %
 %5 %. Esta variacion aplica a todos los links         % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
