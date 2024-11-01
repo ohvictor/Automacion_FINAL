@@ -119,7 +119,7 @@ finalPos = [x0, y0 , currentPos(3)];
 pause(2); 
 
 %Voy a la posicion final de dibujado
-finalPos = [xmax, ymax , currentPos(3)];
+finalPos = [xmin, ymin , currentPos(3)];
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
