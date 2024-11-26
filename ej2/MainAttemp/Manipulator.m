@@ -112,6 +112,23 @@ finalPos = [xmax, currentPos(2) , z0 + marketLenght];
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 
+
+[xinit,yinit] = normToTable(162, 64, xmin, xmax, ymin, ymax);
+[xend,yend] = normToTable(99, 26, xmin, xmax, ymin, ymax);
+%Voy a la posicion inicial de dibujado
+finalPos = [xinit, yinit , currentPos(3)];
+[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+pause(2); 
+
+%Voy a la posicion final de dibujado
+finalPos = [xend, yend , currentPos(3)];
+[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+pause(2); 
+hold on;
+
+drawLineOnPaper([xinit, yinit currentPos(3)], finalPos,marketLenght)
+
+%%
 %Voy a la posicion inicial de dibujado
 finalPos = [x0, y0 , currentPos(3)];
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
