@@ -81,8 +81,8 @@ function [x1,y1,x2,y2] = get_line(input_path)
     %
     % P(u',v') = [a+(b-a)(u'/200)](1-(v'/150)) + [c+(d-c)(u'/200)](v'/150)
 
-    new_width = 200*2;
-    new_height = 150*2;
+    new_width = 200;
+    new_height = 150;
 
     center = (sum(valid_verteces')/4)';
     offsets = valid_verteces-center;
