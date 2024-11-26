@@ -103,7 +103,7 @@ limits = [
 ];
 
 %Obtengo la linea a dibujar
-[x1, y1, x2, y2] = get_line('C:\Users\rovai\Documents\GitHub\Automacion_FINAL\Ej3\images\example_image_1.png')
+[x1, y1, x2, y2] = getLine('C:\Users\rovai\Documents\GitHub\Automacion_FINAL\Ej3\images\example_image_1.png')
 
 % Obtiene la posición inicial en el espacio cartesiano a partir de qz
 currentPos = getPositionFromQz(robot, qz)';
