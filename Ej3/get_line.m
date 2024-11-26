@@ -4,6 +4,7 @@ function [x1,y1,x2,y2] = get_line(input_path)
     x2 = 0;
     y2 = 0;
 
+    SHOW_LINES = false;
     % LECTURA DE IMAGEN Y FILTRADO DE MARCOS
 
     input_image = iread(input_path);
