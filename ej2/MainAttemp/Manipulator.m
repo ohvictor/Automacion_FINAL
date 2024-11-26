@@ -102,6 +102,9 @@ limits = [
     -pi, pi                                     % q5: Rotación completa del efector final
 ];
 
+%Obtengo la linea a dibujar
+[x1, y1, x2, y2] = get_line('C:\Users\rovai\Documents\GitHub\Automacion_FINAL\Ej3\images\example_image_1.png')
+
 % Obtiene la posición inicial en el espacio cartesiano a partir de qz
 currentPos = getPositionFromQz(robot, qz)';
 steps = 30;
@@ -113,8 +116,8 @@ finalPos = [xmax, currentPos(2) , z0 + marketLenght];
 pause(2); 
 
 
-[xinit,yinit] = normToTable(162, 64, xmin, xmax, ymin, ymax);
-[xend,yend] = normToTable(99, 26, xmin, xmax, ymin, ymax);
+[xinit,yinit] = normToTable(x1, y1, xmin, xmax, ymin, ymax);
+[xend,yend] = normToTable(x2, y2, xmin, xmax, ymin, ymax);
 %Voy a la posicion inicial de dibujado
 finalPos = [xinit, yinit , currentPos(3)];
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
