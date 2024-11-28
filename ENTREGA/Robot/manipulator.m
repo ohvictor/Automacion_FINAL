@@ -58,7 +58,7 @@ robot = SerialLink(L,'tool', Tool);
 robot.name = "WidowX Mark II";
 
 %Espacio de Trabajo
-x0= 400; y0=100; z0=0;                       %Ubicacion de la mesa
+x0= 400; y0=0; z0=0;                       %Ubicacion de la mesa
 width=150;large=200;                         %Dimensiones de la mesa
 xmin = x0 - width/2; xmax = x0 + width/2;    %Esquinas eje X de la mesa de dibujo
 ymin = y0 - large/2; ymax = y0 + large/2;    %Esquinas eje y de la mesa de dibujo
