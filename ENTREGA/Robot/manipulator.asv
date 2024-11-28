@@ -68,7 +68,7 @@ robot.teach(qz);
 
 %Obtencion de trayectoria
 [xinit, yinit, xend, yend] = getLine('C:\Users\rovai\Documents\GitHub\Automacion_FINAL\ENTREGA\Vision\Images\example_image_1.png')
-%%
+
 %Dibujo de Trayectoria
 steps = 30;
 %1.Muevo el robot al origen de la mesa y apoyo el marker
@@ -88,49 +88,28 @@ drawLineOnPaper([xinit, yinit currentPos(3)], [xend, yend , currentPos(3)], mark
 
 
 %%
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Bench Test de Posiciones en el plano                 %
 %Sirve para testear como se mueve el brazoo en la mesa% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%Al medio de la mesa
-finalPos = [x0 + width/2, y0 + height/2 , currentPos(3)];
-[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
-pause(2); 
-hold on;
-drawLineOnPaper([xinit, yinit currentPos(3)],finalPos, markerLenght);
+%Al medio
 
-%%
-%Al inicio de la mesa (esquina menor)
+x0= 400; y0=100; z0=0;                       %Ubicacion de la mesa
+width=150;large=200;   
+%Al inicio del rectangulo (esquina menor)
 finalPos = [xmin, ymin , currentPos(3)];
-[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
-pause(2); 
-hold on;
-drawLineOnPaper([xinit, yinit currentPos(3)],finalPos, markerLenght);
-%%
-%Al inicio de la mesa (esquina superior)
-finalPos = [xmax, ymin , currentPos(3)];
-[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
-pause(2); 
-hold on;
-drawLineOnPaper([xinit, yinit currentPos(3)],finalPos, markerLenght);
 
-%%
+%Al inicio del rectangulo (esquina superior)
+finalPos = [xmax, ymin , currentPos(3)]
+
 %Arriba
-%Al inicio de la mesa (esquina superior)
+%Al inicio del rectangulo (esquina superior)
 finalPos = [xmin, ymax , currentPos(3)];
-[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
-pause(2); 
-hold on;
-drawLineOnPaper([xinit, yinit currentPos(3)],finalPos, markerLenght);
 
-%%
-%Al inicio de la mesa (esquina superior)
+%Al inicio del rectangulo (esquina superior)
 finalPos = [xmax, ymax , currentPos(3)];
-[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
-pause(2); 
-hold on;
-drawLineOnPaper([xinit, yinit currentPos(3)],finalPos, markerLenght);
 
 %% 2.1 - ESPACIO ALCANZABLE
 

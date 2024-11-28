@@ -112,12 +112,12 @@ steps = 30;
 
 %Me posiciono en la posicion inicial a la altura de dibujo     
 finalPos = [xmax, currentPos(2) , z0 + marketLenght];
-[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation)
 pause(2); 
 
 
-[xinit,yinit] = normToTable(x1, y1, xmin, xmax, ymin, ymax);
-[xend,yend] = normToTable(x2, y2, xmin, xmax, ymin, ymax);
+[xinit,yinit] = normToTable(x1, y1, xmin, xmax, ymin, ymax)
+[xend,yend] = normToTable(x2, y2, xmin, xmax, ymin, ymax)
 %Voy a la posicion inicial de dibujado
 finalPos = [xinit, yinit , currentPos(3)];
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
