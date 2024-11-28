@@ -9,6 +9,5 @@ function [currentPos, Ts, qz] = moveRobotToOrigin(robot, qz, xmax, z0, markerLen
     % Mover el robot al destino con orientación definida
     [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 
-    % Pausar para observar el movimiento
     pause(2);
 end

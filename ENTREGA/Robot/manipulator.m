@@ -68,12 +68,13 @@ robot.teach(qz);
 
 %Obtencion de trayectoria
 [xinit, yinit, xend, yend] = getLine('C:\Users\rovai\Documents\GitHub\Automacion_FINAL\ENTREGA\Vision\Images\example_image_1.png')
-%%
-%Dibujo de Trayectoria
 steps = 30;
+
+%Dibujo de Trayectoria
 %1.Muevo el robot al origen de la mesa y apoyo el marker
 [currentPos, Ts, qz] = moveRobotToOrigin(robot, qz, xmax, z0, markerLenght, steps, rotation)
 
+%%
 %Voy a la posicion inicial de dibujado
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, [xinit, yinit , currentPos(3)], steps, rotation);
 pause(2); 
@@ -94,43 +95,50 @@ drawLineOnPaper([xinit, yinit currentPos(3)], [xend, yend , currentPos(3)], mark
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Al medio de la mesa
-finalPos = [x0 + width/2, y0 + height/2 , currentPos(3)];
+initPos = currentPos;
+finalPos = [x0,y0, currentPos(3)];
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
-drawLineOnPaper([xinit, yinit currentPos(3)],finalPos, markerLenght);
+drawLineOnPaper(initPos,finalPos, markerLenght);
 
 %%
 %Al inicio de la mesa (esquina menor)
+initPos = currentPos;
 finalPos = [xmin, ymin , currentPos(3)];
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
-drawLineOnPaper([xinit, yinit currentPos(3)],finalPos, markerLenght);
+drawLineOnPaper(initPos,finalPos, markerLenght);
 %%
 %Al inicio de la mesa (esquina superior)
+initPos = currentPos;
 finalPos = [xmax, ymin , currentPos(3)];
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
-drawLineOnPaper([xinit, yinit currentPos(3)],finalPos, markerLenght);
-
-%%
-%Arriba
-%Al inicio de la mesa (esquina superior)
-finalPos = [xmin, ymax , currentPos(3)];
-[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
-pause(2); 
-hold on;
-drawLineOnPaper([xinit, yinit currentPos(3)],finalPos, markerLenght);
+drawLineOnPaper(initPos,finalPos, markerLenght);
 
 %%
 %Al inicio de la mesa (esquina superior)
+initPos = currentPos;
 finalPos = [xmax, ymax , currentPos(3)];
 [currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
-drawLineOnPaper([xinit, yinit currentPos(3)],finalPos, markerLenght);
+drawLineOnPaper(initPos,finalPos, markerLenght);
+
+%%
+%Arriba
+%Al inicio de la mesa (esquina superior)
+initPos = currentPos;
+finalPos = [xmin, ymax , currentPos(3)];
+[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+pause(2); 
+hold on;
+drawLineOnPaper(initPos,finalPos, markerLenght);
+
+
 
 %% 2.1 - ESPACIO ALCANZABLE
 
