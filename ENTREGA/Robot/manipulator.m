@@ -101,6 +101,27 @@ pause(2);
 hold on;
 drawLineOnPaper(initPos,finalPos, markerLenght);
 
+
+%% Triangulo
+
+initPos = currentPos;
+finalPos = [xmin + 40,ymin + 60, currentPos(3)];
+[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+hold on;
+drawLineOnPaper(initPos,finalPos, markerLenght);
+
+initPos = currentPos;
+finalPos = [xmin + 40 ,ymin + 140, currentPos(3)];
+[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+hold on;
+drawLineOnPaper(initPos,finalPos, markerLenght);
+
+initPos = currentPos;
+finalPos = [xmax ,y0, currentPos(3)];
+[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation); 
+hold on;
+drawLineOnPaper(initPos,finalPos, markerLenght);
+
 %%
 %Al inicio de la mesa (esquina menor)
 initPos = currentPos;
