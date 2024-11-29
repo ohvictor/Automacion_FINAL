@@ -4,8 +4,6 @@ clear variables
 clc
 %Definicion de Parametros del Robot y Espacio de Trabajo
 
-rotation = [1,0,0;0,0,-1;0,1,0];
-
 %Distancias de Z1 a Z2
 x1 = 50;    % Longitud del codo - Distancia en X
 y1 = 144;   % Altura en la imagen - Distancia en Y
@@ -21,9 +19,10 @@ xy2 = sqrt(y2^2+x2^2); %Distancia MOD entre Z2 y Z3
 xy3 = sqrt(y3^2+x3^2); %Distancia MOD entre Z3 y Z4
 
 % Límites de giro de los joints
-offset_codo = atan2(y1,x1);             %angulo de inclinación del primer segmento (𝑍1 a 𝑍2)
+offset_codo = atan2(y1,x1);             %angulo de inclinación de𝑍1 a 𝑍2
 qlim2 = [-pi/2 pi/2] - offset_codo;     %limite rotacion z2
 qlim3 = [-pi/2 pi/2] + offset_codo;     %limite rotacion z3
+rotation = [1,0,0;0,0,-1;0,1,0];        %Matriz de rotacion
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Tolerancia:                                          %
@@ -50,7 +49,7 @@ L(4) = RevoluteMDH('d',0,'a',xy2,'alpha',0);
 L(5) = RevoluteMDH('d',xy3,'a',0,'alpha',pi/2);
 
 Tool = transl([0 0 100]);                 %Longitud End Effector
-markerLenght = 100;                       %Longitud del marcador - Perpendicular a la mesa en todo momento
+markerLenght = 100;                       %Longitud del marcador 
 qz = [0 -offset_codo offset_codo pi/2 0]; %Angulos Iniciales de los joint
 
 % Construcción del robot
@@ -72,15 +71,15 @@ steps = 30;
 
 %Dibujo de Trayectoria
 %1.Muevo el robot al origen de la mesa y apoyo el marker
-[currentPos, Ts, qz] = moveRobotToOrigin(robot, qz, xmax, z0, markerLenght, steps, rotation)
+[currentPos, qz] = moveRobotToOrigin(robot, qz, xmax, z0, markerLenght, steps, rotation)
 
 %%
 %Voy a la posicion inicial de dibujado
-[currentPos, Ts, qz] = moveRobotArm(robot, qz, [xinit, yinit , currentPos(3)], steps, rotation);
+[currentPos, qz] = moveRobotArm(robot, qz, [xinit, yinit , currentPos(3)], steps, rotation);
 pause(2); 
 
 %Voy a la posicion final de dibujado
-[currentPos, Ts, qz] = moveRobotArm(robot, qz, [xend, yend , currentPos(3)], steps, rotation);
+[currentPos, qz] = moveRobotArm(robot, qz, [xend, yend , currentPos(3)], steps, rotation);
 pause(2); 
 hold on;
 
@@ -97,7 +96,7 @@ drawLineOnPaper([xinit, yinit currentPos(3)], [xend, yend , currentPos(3)], mark
 %Al medio de la mesa
 initPos = currentPos;
 finalPos = [x0,y0, currentPos(3)];
-[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
 drawLineOnPaper(initPos,finalPos, markerLenght);
@@ -106,7 +105,7 @@ drawLineOnPaper(initPos,finalPos, markerLenght);
 %Al inicio de la mesa (esquina menor)
 initPos = currentPos;
 finalPos = [xmin, ymin , currentPos(3)];
-[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
 drawLineOnPaper(initPos,finalPos, markerLenght);
@@ -114,7 +113,7 @@ drawLineOnPaper(initPos,finalPos, markerLenght);
 %Al inicio de la mesa (esquina superior)
 initPos = currentPos;
 finalPos = [xmax, ymin , currentPos(3)];
-[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
 drawLineOnPaper(initPos,finalPos, markerLenght);
@@ -123,7 +122,7 @@ drawLineOnPaper(initPos,finalPos, markerLenght);
 %Al inicio de la mesa (esquina superior)
 initPos = currentPos;
 finalPos = [xmax, ymax , currentPos(3)];
-[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
 drawLineOnPaper(initPos,finalPos, markerLenght);
@@ -133,7 +132,7 @@ drawLineOnPaper(initPos,finalPos, markerLenght);
 %Al inicio de la mesa (esquina superior)
 initPos = currentPos;
 finalPos = [xmin, ymax , currentPos(3)];
-[currentPos, Ts, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
 drawLineOnPaper(initPos,finalPos, markerLenght);

@@ -1,4 +1,4 @@
-function [currentPos, qz] = moveRobotToOrigin(robot, qz, xmax, z0, markerLength, steps, rotation)
+function [currentPos, Ts, qz] = moveRobotToOrigin(robot, qz, xmax, z0, markerLength, steps, rotation)
 
     % Obtener la posición inicial en el espacio cartesiano a partir de los ángulos articulares
     currentPos = getPositionFromQz(robot, qz)'; % [x, y, z]

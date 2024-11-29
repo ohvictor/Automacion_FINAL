@@ -1,11 +1,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%moveRoboArm                                          %
+%moveRobotArm                                         %
 %Las dimensiones de cada link podrian variar hasta un %
 %5 %. Esta variacion aplica a todos los links         % 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [currentPos, Ts, qLast] = moveRobotArm(robot, qz, finalPos, steps, rotation)
-    % [currentPos, Ts, qLast] = moveRobotArm(robot, qz, finalPos, steps, rotation)
+function [currentPos, currentQ] = moveRobotArm(robot, qz, finalPos, steps, rotation)
     % Mueve el robot desde la configuración inicial qz hasta la posición final deseada en 'steps' pasos en el espacio cartesiano
     
     % Calcular la posición inicial en el espacio cartesiano desde qz
@@ -31,5 +30,5 @@ function [currentPos, Ts, qLast] = moveRobotArm(robot, qz, finalPos, steps, rota
     % Actualizar la posición actual en el espacio cartesiano
     Ts = TMove(:, :, end); % Matriz de transformación final
     currentPos = Ts(1:3, 4)'; % Extrae la posición XYZ final
-    qLast = qMove(end, :); % Última configuración de los ángulos de las articulaciones
+    currentQ = qMove(end, :); % Última configuración de los ángulos de las articulaciones
 end
