@@ -69,7 +69,7 @@ steps = 30;
 
 %Dibujo de Trayectoria
 %1.Muevo el robot al origen de la mesa y apoyo el marker
-[currentPos, qz] = moveRobotToOrigin(robot, qz, xmax, z0, markerLenght, steps, rotation)
+[robotPosition, qz] = moveRobotToOrigin(robot, qz, xmax, z0, markerLenght, steps, rotation)
 
 %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,28 +79,28 @@ steps = 30;
 
 %Triangulo
 
-initPos = currentPos;
-finalPos = [xmin + 40,ymin + 60, currentPos(3)];
-[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+initPos = robotPosition;
+finalPos = [xmin + 40,ymin + 60, robotPosition(3)];
+[robotPosition, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 hold on;
 drawLineOnPaper(initPos,finalPos, markerLenght);
 
-initPos = currentPos;
-finalPos = [xmin + 40 ,ymin + 140, currentPos(3)];
-[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+initPos = robotPosition;
+finalPos = [xmin + 40 ,ymin + 140, robotPosition(3)];
+[robotPosition, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 hold on;
 drawLineOnPaper(initPos,finalPos, markerLenght);
 
-initPos = currentPos;
-finalPos = [xmax ,y0, currentPos(3)];
-[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation); 
+initPos = robotPosition;
+finalPos = [xmax ,y0, robotPosition(3)];
+[robotPosition, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation); 
 hold on;
 drawLineOnPaper(initPos,finalPos, markerLenght);
 
 %% Al medio de la mesa
-initPos = currentPos;
-finalPos = [x0,y0, currentPos(3)];
-[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+initPos = robotPosition;
+finalPos = [x0,y0, robotPosition(3)];
+[robotPosition, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
 %drawLineOnPaper(initPos,finalPos, markerLenght);
@@ -109,25 +109,25 @@ hold on;
 
 
 %% Al inicio de la mesa (esquina menor)
-initPos = currentPos;
-finalPos = [xmin, ymin , currentPos(3)];
-[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+initPos = robotPosition;
+finalPos = [xmin, ymin , robotPosition(3)];
+[robotPosition, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
 drawLineOnPaper(initPos,finalPos, markerLenght);
 
 %% Al inicio de la mesa (esquina superior)
-initPos = currentPos;
-finalPos = [xmax, ymin , currentPos(3)];
-[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+initPos = robotPosition;
+finalPos = [xmax, ymin , robotPosition(3)];
+[robotPosition, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
 drawLineOnPaper(initPos,finalPos, markerLenght);
 
 %% Al inicio de la mesa (esquina superior)
-initPos = currentPos;
-finalPos = [xmax, ymax , currentPos(3)];
-[currentPos, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
+initPos = robotPosition;
+finalPos = [xmax, ymax , robotPosition(3)];
+[robotPosition, qz] = moveRobotArm(robot, qz, finalPos, steps, rotation);
 pause(2); 
 hold on;
 drawLineOnPaper(initPos,finalPos, markerLenght);
