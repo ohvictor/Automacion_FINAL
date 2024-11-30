@@ -32,7 +32,7 @@ function manipulator(imagePath)
     L(5) = RevoluteMDH('d', xy3, 'a', 0, 'alpha', pi/2);
 
     Tool = transl([0 0 100]); % Longitud del End Effector
-    markerLength = 180; % Longitud del marcador
+    markerLength = 100; % Longitud del marcador
     qz = [0 -offset_codo offset_codo pi/2 0]; % Angulos iniciales de los joints
 
     % Construcción del robot
@@ -50,22 +50,28 @@ function manipulator(imagePath)
     % Obtención de trayectoria desde la imagen
     [xinit, yinit, xend, yend] = getLine(imagePath);
     steps = 30;
+    
+    fprintf('La mesa de trabajo está centrada en x: %.2f e y:%.2f \n', x0, y0);
+    fprintf('Obteniendo coordenadas desde la imagen...\n');
+    fprintf('Las coordenadas iniciales son: (%.2f, %.2f)\n', xinit, yinit);
+    fprintf('Las coordenadas finales son: (%.2f, %.2f)\n', xend, yend);
+    fprintf('El robot dibujará la trayectoria...\n', xend, yend);
 
     % Dibujo de trayectoria
-    % 1. Mover al origen de la mesa y posicionar el marcador
-    [currentPos, qz] = moveRobotToOrigin(robot, qz, x0, z0, markerLength, steps, rotation);
+    % 1. Mover al centro de la mesa y posicionar el marcador
+    [robotPosition, qz] = moveRobotToOrigin(robot, qz, x0, z0, markerLength, steps, rotation);
 
     % 2. Mover a la posición inicial de dibujo
-    [currentPos, qz] = moveRobotArm(robot, qz, [xinit, yinit, currentPos(3)], steps, rotation);
+    [robotPosition, qz] = moveRobotArm(robot, qz, [xinit, yinit, robotPosition(3)], steps, rotation);
     pause(2);
 
     % 3. Mover a la posición final de dibujo
-    [currentPos, qz] = moveRobotArm(robot, qz, [xend, yend, currentPos(3)], steps, rotation);
+    [robotPosition, qz] = moveRobotArm(robot, qz, [xend, yend, robotPosition(3)], steps, rotation);
     pause(2);
 
     % 4. Dibujar la línea de referencia
     hold on;
-    drawLineOnPaper([xinit, yinit, currentPos(3)], [xend, yend, currentPos(3)], markerLength);
+    drawLineOnPaper([xinit, yinit, robotPosition(3)], [xend, yend, robotPosition(3)], markerLength);
 
     disp('Proceso completado.');
 end
