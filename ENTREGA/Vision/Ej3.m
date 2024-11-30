@@ -22,7 +22,7 @@ SHOW_LINE_EXTREMES = true;
 
 %% LECTURA DE IMAGEN Y FILTRADO DE MARCOS
 
-input_image = iread('.\images\example_image_1.png');
+input_image = iread('C:\Users\rovai\Documents\GitHub\Automacion_FINAL\Ej3\images\example_image_1.png');
 
 if SHOW_INTERMEDIATE_RESULTS
 figure()
