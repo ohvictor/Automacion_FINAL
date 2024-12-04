@@ -26,3 +26,19 @@
         % x = ρ/sinθ
         % y = t
         % tmin = 0; tmax = HEIGHT
+        
+%
+%   TODO:
+%- mostrar porque
+%   t = max(max(input_image_mono))*0.7;
+%  en lugar de 
+%   t = otsu(input_image_mono);
+%- poner en el PPT lo de borrador y lineas explicativas que borre
+%
+%
+
+%   COMENTAR:
+%- borre lo innecesarior
+%- modifique los flags iniciales
+%- puse algunos comentarios, y tengo TODOs para el PPT
+%- cambie bucket_tool2 a bucket_tool

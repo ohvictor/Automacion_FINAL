@@ -18,19 +18,19 @@ function [x1,y1,x2,y2] = get_line(input_path)
 
     for col = 1:width(input_image_nobackground)
         if input_image_nobackground(1,col) == 0
-            input_image_nobackground = bucket_tool2(input_image_nobackground,1,col,1);
+            input_image_nobackground = bucket_tool(input_image_nobackground,1,col,1);
         end
         if input_image_nobackground(end,col) == 0
-            input_image_nobackground = bucket_tool2(input_image_nobackground,1,height(input_image_nobackground),1);
+            input_image_nobackground = bucket_tool(input_image_nobackground,1,height(input_image_nobackground),1);
         end    
     end
 
     for row = 1:height(input_image_nobackground)
         if input_image_nobackground(row,1) == 0
-            input_image_nobackground = bucket_tool2(input_image_nobackground,row,1,1);
+            input_image_nobackground = bucket_tool(input_image_nobackground,row,1,1);
         end
         if input_image_nobackground(row,end) == 0
-            input_image_nobackground = bucket_tool2(input_image_nobackground,row,width(input_image_nobackground),1);
+            input_image_nobackground = bucket_tool(input_image_nobackground,row,width(input_image_nobackground),1);
         end
     end
 
