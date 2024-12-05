@@ -133,7 +133,7 @@ for i = 1:width(lines)
 
                 if SHOW_LINES
                     hold on
-                    plot(x,y,"o");
+                    plot(x,y,"o",'MarkerSize',15);
                     hold off
                 end
             end
@@ -153,7 +153,7 @@ new_height = 150;
 center = (sum(valid_verteces')/4)';
 offsets = valid_verteces-center;
 angles = atan2(offsets(2,:),offsets(1,:));
-% Se recorren los vertices en sentido antihorario (empleando los angulos 
+% Se recorren los vertices en sentido horario (empleando los angulos 
 % calculados anteriormente)
 ordered_verteces = [angles;valid_verteces];
 ordered_verteces = sortrows(ordered_verteces')';
@@ -164,7 +164,7 @@ b = ordered_verteces(:,2);
 c = ordered_verteces(:,4);
 d = ordered_verteces(:,3);
 
-% Algoritmo de transformacion mediante USING_INTERP2
+% Algoritmo de transformacion mediante INTERP2
 %
 %   a---b               a'--b'
 %   |   |      =>       |   |
@@ -175,8 +175,10 @@ d = ordered_verteces(:,3);
 [Uo,Vo] = imeshgrid(new_width,new_height);
 [Ui,Vi] = imeshgrid(input_image);
 
-U = (a(1)+(b(1)-a(1))*Uo/new_width).*(1-Vo/new_height) + (c(1)+(d(1)-c(1))*Uo/new_width).*(Vo/new_height);
-V = (a(2)+(b(2)-a(2))*Uo/new_width).*(1-Vo/new_height) + (c(2)+(d(2)-c(2))*Uo/new_width).*(Vo/new_height);
+U = (a(1)+(b(1)-a(1))*Uo/new_width).*(1-Vo/new_height) + ...
+    (c(1)+(d(1)-c(1))*Uo/new_width).*(Vo/new_height);
+V = (a(2)+(b(2)-a(2))*Uo/new_width).*(1-Vo/new_height) + ...
+    (c(2)+(d(2)-c(2))*Uo/new_width).*(Vo/new_height);
 
 % IMAGEN EN BLANCO Y NEGRO, SIN PERSPECTIVA
 input_image_transformed = interp2(Ui,Vi,idouble(imono(input_image)),U,V);
@@ -185,7 +187,9 @@ if SHOW_TRANSFORMED
     idisp(input_image_transformed);
 end
 % SEGMENTO ROJO, SIN PERSPECTIVA
-input_line_transformed = iclose(interp2(Ui,Vi,idouble(imono(red_content(input_image))),U,V,'nearest'),kcircle(6));
+input_line_transformed = ...
+    iclose( interp2(Ui,Vi,idouble(imono(red_content(input_image))), ...
+    U,V,'nearest'),kcircle(6));
 if SHOW_TRANSFORMED
     figure()
     idisp(input_line_transformed);
@@ -246,7 +250,8 @@ if cos_theta ~= 0
         ly = round(-sin_theta * t + y0);
         if SHOW_TRANSFORMED
             hold on
-            plot(lx, ly, 'o');
+            plot(lx, ly, 's', 'markersize',2,'MarkerEdgeColor','red',...
+            'MarkerFaceColor','red');
             hold off
         end
         if lx>=1 && lx<=new_width && ly>=1 && ly<= new_height
@@ -286,7 +291,8 @@ filter = sum(kgauss(3));
 filter_width = width(filter);
 filtered_line = conv(filter, line_array(3,:));
 
-filtered_line = filtered_line(ceil(filter_width/2):end-floor(filter_width/2));
+filtered_line = filtered_line(ceil(filter_width/2) ...
+    :end-floor(filter_width/2));
 
 if SHOW_1D_LINE
     hold on;
@@ -316,8 +322,8 @@ if SHOW_LINE_EXTREMES
     
     idisp(input_line_transformed);
     hold on;
-    plot(line_array(1,t_start), line_array(2,t_start),'o');
-    plot(line_array(1,t_end), line_array(2,t_end),'x');
+    plot(line_array(1,t_start), line_array(2,t_start),'o','markersize',10);
+    plot(line_array(1,t_end), line_array(2,t_end),'x','markersize',10);
     hold off;
 end
 %% RESULTADO
