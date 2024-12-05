@@ -5,7 +5,10 @@ function [x_robot, y_robot] = normToTable(x_table, y_table)
 
     width = 200;large = 150;
 
-    % Transformar coordenadas de Mesa Vision a Mesa Robot:
+    % Transformar coordenadas:
+    % - Mapear eje X de la mesa imaginaria al eje Y del robot
     y_robot = y_robot_top_left + (x_table / width) * (y_robot_bottom_right - y_robot_top_left);
+
+    % - Mapear eje Y de la mesa imaginaria al eje X del robot
     x_robot = x_robot_top_left + (y_table / large) * (x_robot_bottom_right - x_robot_top_left);
 end
