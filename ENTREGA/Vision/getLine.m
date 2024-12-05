@@ -3,8 +3,6 @@ function [x1,y1,x2,y2] = getLine(input_path)
     y1 = 0;
     x2 = 0;
     y2 = 0;
-    
-
 
     SHOW_LINES = false;
     % LECTURA DE IMAGEN Y FILTRADO DE MARCOS
@@ -20,19 +18,19 @@ function [x1,y1,x2,y2] = getLine(input_path)
 
     for col = 1:width(input_image_nobackground)
         if input_image_nobackground(1,col) == 0
-            input_image_nobackground = bucket_tool2(input_image_nobackground,1,col,1);
+            input_image_nobackground = bucket_tool(input_image_nobackground,1,col,1);
         end
         if input_image_nobackground(end,col) == 0
-            input_image_nobackground = bucket_tool2(input_image_nobackground,1,height(input_image_nobackground),1);
+            input_image_nobackground = bucket_tool(input_image_nobackground,1,height(input_image_nobackground),1);
         end    
     end
 
     for row = 1:height(input_image_nobackground)
         if input_image_nobackground(row,1) == 0
-            input_image_nobackground = bucket_tool2(input_image_nobackground,row,1,1);
+            input_image_nobackground = bucket_tool(input_image_nobackground,row,1,1);
         end
         if input_image_nobackground(row,end) == 0
-            input_image_nobackground = bucket_tool2(input_image_nobackground,row,width(input_image_nobackground),1);
+            input_image_nobackground = bucket_tool(input_image_nobackground,row,width(input_image_nobackground),1);
         end
     end
 
@@ -200,14 +198,12 @@ function [x1,y1,x2,y2] = getLine(input_path)
         end
 
     end
-    x1 = line_array(1,t_start);
-    y1 = line_array(2,t_start);
-    x2 = line_array(1,t_end);
-    y2 = line_array(2,t_end);
+    x1 = line_array(1,t_start)
+    y1 = line_array(2,t_start)
+    x2 = line_array(1,t_end)
+    y2 = line_array(2,t_end)
     
-    %Traduzco a las posiciones segun las coordeanas de la mesa 
+        %Traduzco a las posiciones segun las coordeanas de la mesa 
     [x1,y1] = normToTable(x1, y1);
     [x2,y2] = normToTable(x2, y2);
-
-    
 end

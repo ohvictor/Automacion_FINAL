@@ -63,11 +63,11 @@ function manipulator(imagePath)
 
     % 2. Mover a la posición inicial de dibujo
     [robotPosition, qz] = moveRobotArm(robot, qz, [xinit, yinit, robotPosition(3)], steps, rotation);
-    pause(2);
+    pause(1);
 
     % 3. Mover a la posición final de dibujo
     [robotPosition, qz] = moveRobotArm(robot, qz, [xend, yend, robotPosition(3)], steps, rotation);
-    pause(2);
+    pause(1);
 
     % 4. Dibujar la línea de referencia
     hold on;

@@ -1,13 +1,19 @@
-function [x_real, y_real] = normToTable(x_norm, y_norm)
+function [x_robot, y_robot] = normToTable(x_table, y_table)
+    % Coordenadas de las esquinas del rectángulo en el sistema del robot
+    x_robot_top_left = 475;   % X de la esquina superior izquierda
+    x_robot_bottom_right = 325; % X de la esquina inferior derecha
 
-    x0= 400; y0=0; z0=0;  
-    width=150;large=200;                         %Dimensiones de la mesa
-    xmin = x0 - width/2; xmax = x0 + width/2;    %Esquinas eje X de la mesa de dibujo
-    ymin = y0 - large/2; ymax = y0 + large/2;
-    
-    % Transformar X
-    x_real = xmin + (xmax - xmin) * (x_norm / 200);
-    
-    % Transformar Y
-    y_real = ymin + (ymax - ymin) * (y_norm / 150);
+    y_robot_top_left = 100;   % Y de la esquina superior izquierda
+    y_robot_bottom_right = -100; % Y de la esquina inferior derecha
+
+    % Dimensiones del rectángulo de la mesa imaginaria
+    width = 200; % Ancho de la mesa imaginaria (eje X)
+    large = 150; % Largo de la mesa imaginaria (eje Y)
+
+    % Transformar coordenadas:
+    % - Mapear eje X de la mesa imaginaria al eje Y del robot
+    y_robot = y_robot_top_left + (x_table / width) * (y_robot_bottom_right - y_robot_top_left);
+
+    % - Mapear eje Y de la mesa imaginaria al eje X del robot
+    x_robot = x_robot_top_left + (y_table / large) * (x_robot_bottom_right - x_robot_top_left);
 end
