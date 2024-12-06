@@ -17,6 +17,8 @@ function manipulator(imagePath)
     xy1 = sqrt(y1^2 + x1^2);
     xy2 = sqrt(y2^2 + x2^2); 
     xy3 = sqrt(y3^2 + x3^2); 
+    
+    fprintf('Las dimensiones del robot son xy1 %.2f mm, xy2 %.2f mm y xy3 mm %.2f\n',xy1, xy2,xy3);
 
     % Límite de giro de los joints
     offset_codo = atan2(y1, x1);
