@@ -46,7 +46,6 @@ function manipulator(imagePath)
     width = 150; large = 200; % Dimensiones de la mesa
     createTablePaper(width, large, x0, y0, z0);
 
-    % Inicialización del robot en teach mode
     robot.teach(qz);
 
     % Obtención de trayectoria desde la imagen

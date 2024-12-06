@@ -27,11 +27,9 @@ function plotSpace(limits, robot, degree_step, qz)
     figure;
     hold on;
     for i = 1:length(x)
-        % Map the x coordinate to a color index
+        % Para un ploteo lindo en RGB
         color_index = round((x(i) - xmin) * 255 / xrange);
-        % Ensure the index is within valid bounds
         color_index = max(1, min(256, color_index));
-        % Plot the point with the corresponding color
         plot3(x(i), y(i), z(i), '.', 'MarkerSize', 2, 'Color', c(color_index, :));
     end
     
@@ -42,6 +40,6 @@ function plotSpace(limits, robot, degree_step, qz)
     title('Reachable Workspace');
     grid on;
     axis equal;
-    view(3); %For 3D
+    view(3);
     hold off;
 end
