@@ -33,7 +33,7 @@ function manipulator(imagePath)
     L(4) = RevoluteMDH('d', 0, 'a', xy2, 'alpha', 0);
     L(5) = RevoluteMDH('d', xy3, 'a', 0, 'alpha', pi/2);
 
-    Tool = transl([0 0 100]); % Longitud del End Effector
+    Tool = transl([0 0 100]); % Longitud del End Effector (Garra sosteniendo marcador)
     markerLength = 100; % Longitud del marcador
     qz = [0 -offset_codo offset_codo pi/2 0]; % Angulos iniciales de los joints
 
